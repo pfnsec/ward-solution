@@ -1,8 +1,9 @@
 ward-solution
+
 Run `ruby questionare.rb` to collect and store a one-off questionare.
 
-`
-Usage: questionare [options]
+
+    Usage: questionare [options]
 
     -r, --report                     Show Summary Report Statistics
 
@@ -10,4 +11,3 @@ Usage: questionare [options]
 
     -c, --continuous                 Continously Run Questionare
 
-`
