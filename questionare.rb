@@ -21,14 +21,6 @@ def parse_options
     end.parse!
 end
 
-
-def print_report() 
-    @store.transaction(true) do
-        print @store[:answers]
-    end
-end
-
-
 @questions = {
     "ruby"   => "Can you code in Ruby?",
     "js"     => "Can you code in Javascript?",
@@ -37,10 +29,40 @@ end
     "csharp" => "Can you code in C#?"
 }
 
+def print_report() 
+    count = 0
+    total = 0
+    @store.transaction(true) do
+        # For every questionnaire run...
+        @store[:answers].each do |run|
+            # ...Take each question asked, 
+            # and increase the total if it's "y".
+            @questions.each_key do |question|
+                if run[question] == "y"
+                    count += 1
+                end
+                total += 1
+            end
+
+        end
+    end
+
+    # Compute the average over all runs
+    # (It's rounded to int per the spec)
+    average = 100 * count / total
+
+    print "Average score for all runs: ", average, "\n"
+
+end
+
+
 def run_questionare
 
     run = Hash.new
 
+    total = 0
+
+    # Ask each question and take an answer from user input.
     @questions.each_key do |key|
         loop do
             print @questions[key]
@@ -48,6 +70,7 @@ def run_questionare
 
             if ans == "y" || ans == "yes"
                 run[key] = "y"
+                total += 1
                 break
 
             elsif ans == "n" || ans == "no"
@@ -64,8 +87,20 @@ def run_questionare
         @store[:answers] ||= Array.new
         @store[:answers].push(run)
     end
+
+    score = 100 * total / @questions.length
+
+    print "Run score: ", score, "/100\n"
 end
 
 parse_options
 
-run_questionare
+if @options[:continuous] 
+    loop do
+        run_questionare
+    end
+else
+    run_questionare
+end
+
+print_report
