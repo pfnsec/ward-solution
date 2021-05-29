@@ -1,13 +1,13 @@
 ward-solution
 
-Run `ruby questionare.rb` to collect and store a one-off questionare.
+Run `ruby questionnaire.rb` to collect and store a one-off questionnaire.
 
 
-    Usage: questionare [options]
+    Usage: questionnaire  [options]
 
     -r, --report                     Show Summary Report Statistics
 
     -h, --help                       Show This Help Text
 
-    -c, --continuous                 Continously Run Questionare
+    -c, --continuous                 Continously Run Questionnaire
 

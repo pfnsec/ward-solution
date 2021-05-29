@@ -15,7 +15,7 @@ def parse_options
             puts opts; exit 
         }
 
-        opts.on("-c", "--continuous", "Continously Run Questionare") {
+        opts.on("-c", "--continuous", "Continously Run Questionnaire") {
             @options[:continuous] = true
         }
     end.parse!
@@ -56,7 +56,7 @@ def print_report()
 end
 
 
-def run_questionare
+def run_questionnaire
 
     run = Hash.new
 
@@ -97,10 +97,10 @@ parse_options
 
 if @options[:continuous] 
     loop do
-        run_questionare
+        run_questionnaire
     end
 else
-    run_questionare
+    run_questionnaire 
 end
 
 print_report
